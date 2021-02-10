@@ -80,12 +80,16 @@ const FoodDetails: React.FC = () => {
         formattedPrice: formatValue(response.data.price),
       };
 
-      setFood(formattedFood);
+      setFood({
+        ...response.data,
+        formattedPrice: formatValue(response.data.price),
+      });
+
       setExtras(
-        formattedFood.extras.map(extra => {
+        formattedFood.extras.map((extra: Omit<Extra, 'quantity'>) => {
           return {
             ...extra,
-            quantity: extra.quantity === undefined ? 0 : extra.quantity,
+            quantity: 0,
           };
         }),
       );
