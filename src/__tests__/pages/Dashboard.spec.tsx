@@ -9,8 +9,9 @@ import Dashboard from '../../pages/Dashboard';
 const mockedNavigate = jest.fn();
 
 jest.mock('@react-navigation/native', () => {
+  const actual = jest.requireActual('@react-navigation/native');
   return {
-    ...jest.requireActual('@react-navigation/native'),
+    ...actual,
     useNavigation: () => ({
       navigate: mockedNavigate,
     }),
@@ -400,6 +401,7 @@ describe('Dashboard', () => {
 
     apiMock.onGet('/categories').reply(200, categories);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { getByText, queryByText, getByTestId, debug } = render(
       <Dashboard />,
     );
